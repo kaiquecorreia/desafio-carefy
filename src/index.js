@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { StatusBar } from 'react-native';
-// import './config/ReactotronConfig';
-
+import { Provider } from 'react-redux';
+import './config/ReactotronConfig';
+import store from './store';
 import Routes from './routes';
 import { colors } from './styles';
 
 const App = () => (
-  <Fragment>
+  <Provider store={store}>
     <StatusBar barStyle="light-content" backgroundColor={colors.secundary} />
     <Routes />
-  </Fragment>
+  </Provider>
 );
 
 export default App;
