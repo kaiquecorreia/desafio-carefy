@@ -1,12 +1,17 @@
 import { Platform } from 'react-native';
 import Reactotron from 'reactotron-react-native';
+import { reactotronRedux } from 'reactotron-redux';
+import sagaPlugin from 'reactotron-redux-saga';
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   const tron = Reactotron.configure(
     Platform.OS === 'ios' ? {} : { host: '10.0.3.2' },
   )
-    .useReactNative()
+    .use(reactotronRedux())
+    .use(sagaPlugin())
     .connect();
-  console.tron = tron;
+
   tron.clear();
+
+  console.tron = tron;
 }
