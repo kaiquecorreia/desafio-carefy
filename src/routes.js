@@ -1,8 +1,35 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import {
+  createAppContainer,
+  createSwitchNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
+import { colors } from './styles';
 
 import Login from './pages/Login';
-import Patients from './pages/Patients';
+import PatientsList from './pages/PatientsList';
+import NewPatient from './pages/NewPatient';
 
-const Routes = createAppContainer(createSwitchNavigator({ Login, Patients }));
+const Routes = createAppContainer(
+  createSwitchNavigator({
+    Login,
+    Patients: createBottomTabNavigator(
+      {
+        PatientsList,
+        NewPatient,
+      },
+      {
+        tabBarOptions: {
+          showIcon: true,
+          showLabel: false,
+          activeTintColor: colors.white,
+          inactiveTintColor: colors.whiteTransparent,
+          style: {
+            backgroundColor: colors.secundary,
+          },
+        },
+      },
+    ),
+  }),
+);
 
 export default Routes;

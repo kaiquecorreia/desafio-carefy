@@ -1,23 +1,65 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Creators as LoginActions } from '../../store/ducks/login';
 import styles from './styles';
+import { navigate } from '../../services/navigation';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     email: '',
     password: '',
   };
 
-  handleSubmit() {}
+  handleSubmit = async () => {
+    const { email, password } = this.state;
+    const { loginRequest } = this.props;
+    this.setState({ email: '', password: '' });
+    loginRequest({ email, password });
+  };
+  checkLogin = async () => {
+    try {
+      const { user } = this.props;
+      const userLogged = await AsyncStorage.getItem('@PatientApp:user');
+      if (!userLogged) {
+        if (user) {
+          await AsyncStorage.setItem('@PatientApp:user', JSON.stringify(user));
+        }
+      } else {
+        navigate('Patients');
+      }
+    } catch (e) {
+      console.tron.log(e);
+    }
+  };
+  componentWillMount() {
+    this.checkLogin();
+  }
+  componentDidUpdate() {
+    this.checkLogin();
+  }
 
   render() {
     const { email, password } = this.state;
+    const { error, loading } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Bem-vindo</Text>
 
         <View style={styles.form}>
+          {error && (
+            <Text style={styles.error}>
+              Usário e/ou senha não correspondente
+            </Text>
+          )}
           <Text style={styles.inputText}>Informe seu e-mail</Text>
           <TextInput
             value={email}
@@ -37,9 +79,14 @@ export default class Login extends Component {
             placeholder="Digite sua senha"
             onChangeText={text => this.setState({ password: text })}
             underlineColorAndroid="transparent"
+            secureTextEntry={true}
           />
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-            <Text style={styles.buttonText}>Prosseguir</Text>
+            {loading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Prosseguir</Text>
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -47,4 +94,16 @@ export default class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  error: state.login.error,
+  loading: state.login.loading,
+  user: state.login.user,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(LoginActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);
