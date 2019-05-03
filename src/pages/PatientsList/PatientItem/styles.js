@@ -4,7 +4,7 @@ import { colors, metrics } from '../../../styles';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    borderRadius: metrics.baseRadius,
+    borderRadius: metrics.baseRadius * 3,
     padding: metrics.basePadding,
     marginHorizontal: metrics.baseMargin * 2,
     marginTop: metrics.baseMargin,

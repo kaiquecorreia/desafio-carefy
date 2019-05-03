@@ -8,22 +8,22 @@ const PatientItem = ({ patient }) => (
   <View style={styles.container}>
     <Text style={styles.title}>Nome: {patient.name}</Text>
     <View style={styles.info}>
-      <Icon name="building" size={12} style={styles.infoIcon} />
-      <Text style={styles.infoText}>{patient.hospital}</Text>
+      <Icon name="building" size={20} style={styles.infoIcon} />
+      <Text style={styles.infoText}>Hospital: {patient.hospital}</Text>
     </View>
     <View style={styles.infoContainer}>
       {/* <View style={styles.info}>
-        <Icon name="building" size={12} style={styles.infoIcon} />
+        <Icon name="building" size={20} style={styles.infoIcon} />
         <Text style={styles.infoText}>{patient.hospital}</Text>
       </View> */}
       <View style={styles.info}>
-        <Icon name="user" size={12} style={styles.infoIcon} />
-        <Text style={styles.infoText}>{patient.user}</Text>
+        <Icon name="user" size={20} style={styles.infoIcon} />
+        <Text style={styles.infoText}>Cadastrado por: {patient.user}</Text>
       </View>
       <View style={styles.info}>
         <Icon
-          name={patient.enabled ? 'lock' : 'lock-open'}
-          size={12}
+          name={patient.enabled ? 'unlock' : 'lock'}
+          size={20}
           style={styles.infoIcon}
         />
       </View>

@@ -11,7 +11,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { Creators as PatientActions } from '../../store/ducks/patient';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import RadioForm from 'react-native-simple-radio-button';
+import { colors } from '../../styles';
 import Header from '../../components/Header';
 import styles from './styles';
 
@@ -47,9 +48,14 @@ class NewPatient extends Component {
   };
   render() {
     const {
-      patient: { name, hospital },
+      patient: { name, hospital, enabled },
     } = this.state;
+    console.tron.log(enabled);
     const { error, loading } = this.props;
+    const radioProps = [
+      { label: 'Inativo', value: 0 },
+      { label: 'Ativo', value: 1 },
+    ];
     return (
       <Fragment>
         <Header title="Novo paciente" />
@@ -95,6 +101,22 @@ class NewPatient extends Component {
                 }))
               }
               underlineColorAndroid="transparent"
+            />
+            <RadioForm
+              radio_props={radioProps}
+              initial={enabled}
+              labelColor={colors.primary}
+              selectedLabelColor={colors.primary}
+              buttonColor={colors.primary}
+              selectedButtonColor={colors.primary}
+              onPress={option =>
+                this.setState(prevState => ({
+                  patient: {
+                    ...prevState.patient,
+                    enabled: option,
+                  },
+                }))
+              }
             />
             <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
               {loading ? (

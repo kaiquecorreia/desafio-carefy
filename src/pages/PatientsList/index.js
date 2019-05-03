@@ -18,7 +18,9 @@ class PatientsList extends Component {
       <Icon name="list-alt" size={20} color={tintColor} />
     ),
   };
-
+  state = {
+    username: '',
+  };
   componentDidMount() {
     this.getPatientList();
   }
@@ -27,7 +29,7 @@ class PatientsList extends Component {
     let userLogged = await AsyncStorage.getItem('@PatientApp:user');
     if (userLogged) {
       userLogged = await JSON.parse(userLogged);
-      return userLogged.id;
+      return userLogged;
     }
     navigate('Login');
     return false;
@@ -35,8 +37,9 @@ class PatientsList extends Component {
 
   getPatientList = async () => {
     const { patientListReadRequest } = this.props;
-    const userId = await this.checkUserLogged();
-    patientListReadRequest(userId);
+    const user = await this.checkUserLogged();
+    this.setState({ username: user.name });
+    patientListReadRequest(user.id);
   };
   renderListItem = ({ item }) => <PatientItem patient={item} />;
   renderPatientList = () => {
@@ -46,16 +49,21 @@ class PatientsList extends Component {
         data={patientsList}
         keyExtractor={item => item.id}
         renderItem={this.renderListItem}
+        style={styles.listContainer}
       />
     );
   };
 
   render() {
     const { loading } = this.props;
+    const { username } = this.state;
 
     return (
       <View style={styles.container}>
-        <Header title="Lista de Pacientes" />
+        <Header title={`Olá ! Seja bem vindo, ${username}`} />
+        <View style={styles.listing}>
+          <Text style={styles.listingTitle}>Listagem de pacientes</Text>
+        </View>
         {loading ? (
           <ActivityIndicator style={styles.loading} />
         ) : (
