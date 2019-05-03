@@ -6,13 +6,18 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles';
 class Header extends Component {
+  /**
+   * Validação de props via protypes
+   */
   static propTypes = {
     title: PropTypes.string.isRequired,
     navigation: PropTypes.shape({
       navigate: PropTypes.func,
     }).isRequired,
   };
-
+  /**
+   * Desconeta o usuário logado
+   */
   signOut = async () => {
     const { navigation } = this.props;
     await AsyncStorage.clear();
@@ -27,9 +32,7 @@ class Header extends Component {
         <View style={styles.left} />
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={this.signOut}>
-          <Icon name="sign-out" size={16} style={styles.icon}>
-            <Text>Sair</Text>
-          </Icon>
+          <Icon name="sign-out" size={24} style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

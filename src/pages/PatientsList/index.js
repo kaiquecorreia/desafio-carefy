@@ -16,12 +16,17 @@ import { navigate } from '../../services/navigation';
 import styles from './styles';
 
 class PatientsList extends Component {
+  /**
+   * Aplica estilos e icones ao menu do app
+   */
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="list-alt" size={20} color={tintColor} />
     ),
   };
-
+  /**
+   * Validação de props via propTypes
+   */
   static propTypes = {
     patientListReadRequest: PropTypes.func.isRequired,
     patientList: PropTypes.arrayOf(
@@ -36,13 +41,20 @@ class PatientsList extends Component {
     ),
     loading: PropTypes.bool,
   };
+
+  /**
+   * Estado de patientList
+   */
   state = {
     username: '',
   };
   componentDidMount() {
     this.getPatientList();
   }
-
+  /**
+   * Verifica se o usuário está logado
+   * Caso não esteja retorna para tela de login
+   */
   checkUserLogged = async () => {
     let userLogged = await AsyncStorage.getItem('@PatientApp:user');
     if (userLogged) {
@@ -52,14 +64,22 @@ class PatientsList extends Component {
     navigate('Login');
     return false;
   };
-
+  /**
+   * Busca os pacientes filtrado pelo usuário logado
+   */
   getPatientList = async () => {
     const { patientListReadRequest } = this.props;
     const user = await this.checkUserLogged();
     this.setState({ username: user.name });
     patientListReadRequest(user.id);
   };
+  /**
+   * Funçãp passada para renderizar a lista de pacientes
+   */
   renderListItem = ({ item }) => <PatientItem patient={item} />;
+  /**
+   * Retorna o componente de lista de pacientes
+   */
   renderPatientList = () => {
     const { patientsList } = this.props;
 
@@ -84,7 +104,7 @@ class PatientsList extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={`Olá ! Seja bem vindo, ${username}`} />
+        <Header title={`Olá , ${username}!`} />
         <View style={styles.listing}>
           <Text style={styles.listingTitle}>Listagem de pacientes</Text>
         </View>
@@ -97,6 +117,9 @@ class PatientsList extends Component {
     );
   }
 }
+/**
+ * Conetando o componente a Store
+ */
 const mapStateToProps = state => ({
   patientsList: state.patientList.patientsList,
   loading: state.patientList.loading,

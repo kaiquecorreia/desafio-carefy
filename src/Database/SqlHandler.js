@@ -1,5 +1,7 @@
 import SQLite from 'react-native-sqlite-storage';
-
+/**
+ * Retonar funções de manipulação do banco de dados SQLITE
+ */
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 
@@ -12,7 +14,9 @@ error = err => {
 success = () => {
   console.log('Conectado ao banco de dados');
 };
-
+/**
+ * Realiza a conexão ao banco de dados SQLITE
+ */
 connection = async () => {
   return SQLite.openDatabase(
     {
@@ -24,7 +28,9 @@ connection = async () => {
     error,
   );
 };
-
+/**
+ * Busca dados no BD
+ */
 export const Read = async Sql => {
   try {
     database = await connection();
@@ -46,16 +52,21 @@ export const Read = async Sql => {
     console.log(error);
   }
 };
+/**
+ * Delete dados do bd
+ */
 export const Delete = async Sql => {
   try {
     database = await connection();
     await database.transaction(tx => {
       tx.executeSql(Sql);
     });
-    // await database.closeDatabase();
     return true;
   } catch (error) {}
 };
+/**
+ * Registra dados no banco de dados
+ */
 export const Store = async (sql, table) => {
   try {
     database = await connection();

@@ -8,7 +8,9 @@ import { colors } from './styles';
 import Login from './pages/Login';
 import PatientsList from './pages/PatientsList';
 import NewPatient from './pages/NewPatient';
-
+/**
+ * Configurções de rotas do app
+ */
 const Routes = createAppContainer(
   createSwitchNavigator({
     Login,

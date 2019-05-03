@@ -7,18 +7,25 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Creators as LoginActions } from '../../store/ducks/login';
 import styles from './styles';
 import { navigate } from '../../services/navigation';
-
+import Logo from '../../assets/images/logo.png';
 class Login extends Component {
+  /**
+   * Estados de login
+   */
   state = {
     email: '',
     password: '',
   };
+  /**
+   * Validação de props via propTypes
+   */
   static propTypes = {
     loginRequest: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
@@ -30,12 +37,18 @@ class Login extends Component {
       password: PropTypes.string.isRequired,
     }),
   };
+  /**
+   * enviar o formulario de login
+   */
   handleSubmit = async () => {
     const { email, password } = this.state;
     const { loginRequest } = this.props;
     this.setState({ email: '', password: '' });
     loginRequest({ email, password });
   };
+  /**
+   * verifica se o usuário está logado
+   */
   checkLogin = async () => {
     try {
       const { user } = this.props;
@@ -57,14 +70,17 @@ class Login extends Component {
   componentDidUpdate() {
     this.checkLogin();
   }
-
+  /**
+   * Renderiza a pagina de login
+   */
   render() {
     const { email, password } = this.state;
     const { error, loading } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Bem-vindo</Text>
-
+        <View style={styles.imageContainer}>
+          <Image style={{ width: 300, height: 100 }} source={Logo} />
+        </View>
         <View style={styles.form}>
           {error && (
             <Text style={styles.error}>
@@ -104,7 +120,9 @@ class Login extends Component {
     );
   }
 }
-
+/**
+ * Conetando o componente a Store
+ */
 const mapStateToProps = state => ({
   error: state.login.error,
   loading: state.login.loading,

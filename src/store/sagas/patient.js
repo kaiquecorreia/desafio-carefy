@@ -4,6 +4,9 @@ import { Creators as PatientActions } from '../ducks/patient';
 import { Store } from '../../Database/SqlHandler';
 import { navigate } from '../../services/navigation';
 
+/**
+ * Armazena os dados do paciente no BD
+ */
 export function* storePatient(action) {
   try {
     const {

@@ -1,15 +1,22 @@
+/**
+ * Reducers Types
+ */
 export const Types = {
   CREATE_REQUEST: 'patient/CREATE_REQUEST',
   CREATE_SUCCESS: 'patient/CREATE_SUCCESS',
   CREATE_FAILURE: 'patient/CREATE_FAILURE',
 };
-
+/**
+ * Estado inicial de patient
+ */
 const INITIAL_STATE = {
   patient: null,
   loading: false,
   error: false,
 };
-
+/**
+ * Altera o estado de patient
+ */
 export default function patient(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.CREATE_REQUEST:
@@ -27,7 +34,9 @@ export default function patient(state = INITIAL_STATE, action) {
       return state;
   }
 }
-
+/**
+ * Funcões responsáveis por enviar as informações de um novo reducer de patient
+ */
 export const Creators = {
   patientCreateRequest: patient => ({
     type: Types.CREATE_REQUEST,

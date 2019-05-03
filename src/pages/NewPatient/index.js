@@ -18,20 +18,32 @@ import Header from '../../components/Header';
 import styles from './styles';
 
 class NewPatient extends Component {
+  /**
+   * Estado de NewPatient
+   */
   state = {
     patient: { name: '', hospital: '', user_id: null, enabled: 1 },
   };
+  /**
+   * Atribui estilo e icones aos menus do app
+   */
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="user-plus" size={20} color={tintColor} />
     ),
   };
+  /**
+   * Validação de props via propTypes
+   */
   static propTypes = {
     patientCreateRequest: PropTypes.func.isRequired,
     patientCreateFailure: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
   };
+  /**
+   * Enviar o formulário de cadastro
+   */
   handleSubmit = async () => {
     const { patientCreateRequest, patientCreateFailure } = this.props;
     const { patient } = this.state;
@@ -44,6 +56,9 @@ class NewPatient extends Component {
       patientCreateFailure();
     }
   };
+  /**
+   * Valida os dados do formulário
+   */
   inputValidate = () => {
     const {
       patient: { name, hospital },
@@ -56,7 +71,6 @@ class NewPatient extends Component {
     const {
       patient: { name, hospital, enabled },
     } = this.state;
-    console.tron.log(enabled);
     const { error, loading } = this.props;
     const radioProps = [
       { label: 'Inativo', value: 0 },
@@ -137,7 +151,9 @@ class NewPatient extends Component {
     );
   }
 }
-
+/**
+ * Conetando o componente a Store
+ */
 const mapStateToProps = state => ({
   error: state.patient.error,
   loading: state.patient.loading,

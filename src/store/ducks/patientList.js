@@ -1,3 +1,6 @@
+/**
+ * Reducers Types
+ */
 export const Types = {
   READ_REQUEST: 'patientList/READ_REQUEST',
   READ_SUCCESS: 'patientList/READ_SUCCESS',
@@ -7,14 +10,18 @@ export const Types = {
   DELETE_SUCCESS: 'patientList/DELETE_SUCCESS',
   DELETE_FAILURE: 'patientList/DELETE_FAILURE',
 };
-
+/**
+ * Estado inicial de patientList
+ */
 const INITIAL_STATE = {
   patientsList: [],
   loading: true,
   loadingDelete: false,
   error: false,
 };
-
+/**
+ * Altera o estado de patientList
+ */
 export default function patientList(state = INITIAL_STATE, action) {
   switch (action.type) {
     case Types.READ_REQUEST:
@@ -47,7 +54,9 @@ export default function patientList(state = INITIAL_STATE, action) {
       return state;
   }
 }
-
+/**
+ * Funcões responsáveis por enviar as informações de um novo reducer de patientList
+ */
 export const Creators = {
   patientListReadRequest: userId => ({
     type: Types.READ_REQUEST,

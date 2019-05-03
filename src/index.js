@@ -7,6 +7,9 @@ import Routes from './routes';
 import { setNavigator } from './services/navigation';
 import { colors } from './styles';
 
+/**
+ * Conecta na store do redux e retorna as rotas e seus componentes
+ */
 const App = () => {
   return (
     <Provider store={store}>
