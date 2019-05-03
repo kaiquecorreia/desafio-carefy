@@ -56,7 +56,6 @@ class NewPatient extends Component {
     const {
       patient: { name, hospital, enabled },
     } = this.state;
-    console.tron.log(enabled);
     const { error, loading } = this.props;
     const radioProps = [
       { label: 'Inativo', value: 0 },
