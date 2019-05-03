@@ -5,7 +5,9 @@ import { Types as PatientListTypes } from '../ducks/patientList';
 import { getSignin } from './login';
 import { storePatient } from './patient';
 import { readPatientList, deletePatientList } from './patientList';
-
+/**
+ * Funções interceptadas e executadas pelo redu saga
+ */
 export default function* rootSaga() {
   yield all([
     takeLatest(LoginTypes.GET_REQUEST, getSignin),

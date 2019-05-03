@@ -16,10 +16,16 @@ import styles from './styles';
 import { navigate } from '../../services/navigation';
 import Logo from '../../assets/images/logo.png';
 class Login extends Component {
+  /**
+   * Estados de login
+   */
   state = {
     email: '',
     password: '',
   };
+  /**
+   * Validação de props via propTypes
+   */
   static propTypes = {
     loginRequest: PropTypes.func.isRequired,
     error: PropTypes.bool.isRequired,
@@ -31,12 +37,18 @@ class Login extends Component {
       password: PropTypes.string.isRequired,
     }),
   };
+  /**
+   * enviar o formulario de login
+   */
   handleSubmit = async () => {
     const { email, password } = this.state;
     const { loginRequest } = this.props;
     this.setState({ email: '', password: '' });
     loginRequest({ email, password });
   };
+  /**
+   * verifica se o usuário está logado
+   */
   checkLogin = async () => {
     try {
       const { user } = this.props;
@@ -58,7 +70,9 @@ class Login extends Component {
   componentDidUpdate() {
     this.checkLogin();
   }
-
+  /**
+   * Renderiza a pagina de login
+   */
   render() {
     const { email, password } = this.state;
     const { error, loading } = this.props;
@@ -106,7 +120,9 @@ class Login extends Component {
     );
   }
 }
-
+/**
+ * Conetando o componente a Store
+ */
 const mapStateToProps = state => ({
   error: state.login.error,
   loading: state.login.loading,

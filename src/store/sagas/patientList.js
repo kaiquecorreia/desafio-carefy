@@ -1,7 +1,10 @@
 import { call, put } from 'redux-saga/effects';
 import { Creators as PatientListActions } from '../ducks/patientList';
 import { Read, Delete } from '../../Database/SqlHandler';
-
+/**
+ * Busca todos os pacientes que o usuário cadastrou no BD
+ * retorna uma lista de pacientes
+ */
 export function* readPatientList(action) {
   try {
     const { userId } = action.payload;
@@ -20,6 +23,9 @@ export function* readPatientList(action) {
     yield put(PatientListActions.patientListReadFailure());
   }
 }
+/**
+ * Delete o paciente do bd de dados
+ */
 export function* deletePatientList(action) {
   try {
     const { userId } = action.payload;

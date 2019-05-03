@@ -10,6 +10,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 class PatientItem extends Component {
+  /**
+   * Validação de props via proTypes
+   */
   static propTypes = {
     patient: PropTypes.shape({
       name: PropTypes.string,
@@ -19,6 +22,9 @@ class PatientItem extends Component {
     }).isRequired,
     patientListDeleteRequest: PropTypes.func.isRequired,
   };
+  /**
+   * Função responsável por deletar um paciente da lista
+   */
   deletePatient = async () => {
     const { id } = this.props.patient;
     const { patientListDeleteRequest } = this.props;
@@ -56,7 +62,9 @@ class PatientItem extends Component {
     );
   }
 }
-
+/**
+ * Conetando o componente a Store
+ */
 const mapStateToProps = state => ({
   patientsList: state.patientList.patientsList,
   loading: state.patientList.loadingDelete,

@@ -3,8 +3,10 @@ import { Creators as LoginActions } from '../ducks/login';
 import { Read } from '../../Database/SqlHandler';
 import { navigate } from '../../services/navigation';
 
-// import { Creators as ErrorActions } from '../ducks/error';
-
+/**
+ * Verifica se os dados do usuário estão corretos
+ * Caso esteja envia o usuário para inicial da aplicação
+ */
 export function* getSignin(action) {
   try {
     const user = yield call(
