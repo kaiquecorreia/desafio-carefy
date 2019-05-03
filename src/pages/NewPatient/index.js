@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Creators as PatientActions } from '../../store/ducks/patient';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -25,7 +26,12 @@ class NewPatient extends Component {
       <Icon name="user-plus" size={20} color={tintColor} />
     ),
   };
-
+  static propTypes = {
+    patientCreateRequest: PropTypes.func.isRequired,
+    patientCreateFailure: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+  };
   handleSubmit = async () => {
     const { patientCreateRequest, patientCreateFailure } = this.props;
     const { patient } = this.state;

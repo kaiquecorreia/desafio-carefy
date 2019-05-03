@@ -7,16 +7,34 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as PatientsListCreators } from '../../store/ducks/patientList';
 
+import PropTypes from 'prop-types';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/Header';
 import PatientItem from './PatientItem';
 import { navigate } from '../../services/navigation';
 import styles from './styles';
+
 class PatientsList extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
       <Icon name="list-alt" size={20} color={tintColor} />
     ),
+  };
+
+  static propTypes = {
+    patientListReadRequest: PropTypes.func.isRequired,
+    patientList: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        hospital: PropTypes.string,
+        email: PropTypes.string,
+        enabled: PropTypes.bool,
+        user: PropTypes.string,
+      }),
+    ),
+    loading: PropTypes.bool,
   };
   state = {
     username: '',
@@ -44,13 +62,19 @@ class PatientsList extends Component {
   renderListItem = ({ item }) => <PatientItem patient={item} />;
   renderPatientList = () => {
     const { patientsList } = this.props;
-    return (
+
+    return patientsList.length > 0 ? (
       <FlatList
         data={patientsList}
         keyExtractor={item => String(item.id)}
         renderItem={this.renderListItem}
         style={styles.listContainer}
       />
+    ) : (
+      <View style={styles.listing}>
+        <Text style={styles.listingTitle}>Nenhum paciente cadastrado.</Text>
+        <Icon style={styles.listingIcon} name="check" size={30} />
+      </View>
     );
   };
 

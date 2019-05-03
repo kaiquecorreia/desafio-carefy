@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Creators as LoginActions } from '../../store/ducks/login';
 import styles from './styles';
@@ -18,7 +19,17 @@ class Login extends Component {
     email: '',
     password: '',
   };
-
+  static propTypes = {
+    loginRequest: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+    }),
+  };
   handleSubmit = async () => {
     const { email, password } = this.state;
     const { loginRequest } = this.props;

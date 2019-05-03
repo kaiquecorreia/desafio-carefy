@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
   listing: {
     marginTop: metrics.baseMargin,
     marginBottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
     backgroundColor: colors.white,
     padding: metrics.basePadding,
     marginHorizontal: metrics.baseMargin * 2,
@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
   listingTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: colors.primary,
+  },
+  listingIcon: {
     color: colors.primary,
   },
   listContainer: {
