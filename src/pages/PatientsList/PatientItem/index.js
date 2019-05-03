@@ -17,6 +17,7 @@ class PatientItem extends Component {
       enable: PropTypes.number,
       user: PropTypes.string,
     }).isRequired,
+    patientListDeleteRequest: PropTypes.func.isRequired,
   };
   deletePatient = async () => {
     const { id } = this.props.patient;
