@@ -33,7 +33,11 @@ export default function patientList(state = INITIAL_STATE, action) {
       return { ...state };
     case Types.DELETE_SUCCESS:
       return {
-        ...state,
+        patientsList: [
+          ...state.patientsList.filter(
+            patient => patient.id !== action.payload.userId,
+          ),
+        ],
         loadingDelete: false,
         error: false,
       };
@@ -59,8 +63,9 @@ export const Creators = {
     type: Types.DELETE_REQUEST,
     payload: { userId },
   }),
-  patientListDeleteSuccess: () => ({
+  patientListDeleteSuccess: userId => ({
     type: Types.DELETE_SUCCESS,
+    payload: { userId },
   }),
   patientListDeleteFailure: () => ({ type: Types.DELETE_FAILURE }),
 };

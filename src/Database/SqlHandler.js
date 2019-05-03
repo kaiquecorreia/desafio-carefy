@@ -26,31 +26,11 @@ connection = async () => {
 };
 
 export const Read = async Sql => {
-  database = await connection();
-  let data = [];
-  await database.transaction(tx => {
-    tx.executeSql(Sql, [], (tx, results) => {
-      const rows = results.rows;
-
-      for (let i = 0; i < rows.length; i++) {
-        data.push({
-          ...rows.item(i),
-        });
-      }
-    });
-  });
-  // await database.closeDatabase();
-  return data;
-};
-export const Store = async (sql, table) => {
-  database = await connection();
-  let data = [];
-  await database.transaction(tx => {
-    tx.executeSql(sql);
-    tx.executeSql(
-      `SELECT * FROM ${table} ORDER BY id DESC LIMIT 1`,
-      [],
-      (tx, results) => {
+  try {
+    database = await connection();
+    let data = [];
+    await database.transaction(tx => {
+      tx.executeSql(Sql, [], (tx, results) => {
         const rows = results.rows;
 
         for (let i = 0; i < rows.length; i++) {
@@ -58,9 +38,45 @@ export const Store = async (sql, table) => {
             ...rows.item(i),
           });
         }
-      },
-    );
-  });
+      });
+    });
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const Delete = async Sql => {
+  try {
+    database = await connection();
+    await database.transaction(tx => {
+      tx.executeSql(Sql);
+    });
+    // await database.closeDatabase();
+    return true;
+  } catch (error) {}
+};
+export const Store = async (sql, table) => {
+  try {
+    database = await connection();
+    let data = [];
+    await database.transaction(tx => {
+      tx.executeSql(sql);
+      tx.executeSql(
+        `SELECT * FROM ${table} ORDER BY id DESC LIMIT 1`,
+        [],
+        (tx, results) => {
+          const rows = results.rows;
+
+          for (let i = 0; i < rows.length; i++) {
+            data.push({
+              ...rows.item(i),
+            });
+          }
+        },
+      );
+    });
+
+    return data;
+  } catch (error) {}
 };

@@ -33,5 +33,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: metrics.baseMargin,
   },
+  buttonExcluded: {
+    marginLeft: metrics.baseMargin,
+  },
 });
 export default styles;

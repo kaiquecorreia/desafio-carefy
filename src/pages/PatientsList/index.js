@@ -6,12 +6,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as PatientsListCreators } from '../../store/ducks/patientList';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/Header';
 import PatientItem from './PatientItem';
 import { navigate } from '../../services/navigation';
 import styles from './styles';
-
 class PatientsList extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
@@ -47,7 +47,7 @@ class PatientsList extends Component {
     return (
       <FlatList
         data={patientsList}
-        keyExtractor={item => item.id}
+        keyExtractor={item => String(item.id)}
         renderItem={this.renderListItem}
         style={styles.listContainer}
       />
