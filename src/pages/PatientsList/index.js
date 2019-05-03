@@ -84,7 +84,7 @@ class PatientsList extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={`Olá ! Seja bem vindo, ${username}`} />
+        <Header title={`Olá , ${username}!`} />
         <View style={styles.listing}>
           <Text style={styles.listingTitle}>Listagem de pacientes</Text>
         </View>

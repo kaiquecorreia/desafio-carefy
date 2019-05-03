@@ -27,9 +27,7 @@ class Header extends Component {
         <View style={styles.left} />
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={this.signOut}>
-          <Icon name="sign-out" size={16} style={styles.icon}>
-            <Text>Sair</Text>
-          </Icon>
+          <Icon name="sign-out" size={24} style={styles.icon} />
         </TouchableOpacity>
       </View>
     );

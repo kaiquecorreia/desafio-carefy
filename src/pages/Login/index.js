@@ -7,13 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Creators as LoginActions } from '../../store/ducks/login';
 import styles from './styles';
 import { navigate } from '../../services/navigation';
-
+import Logo from '../../assets/images/logo.png';
 class Login extends Component {
   state = {
     email: '',
@@ -63,8 +64,9 @@ class Login extends Component {
     const { error, loading } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Bem-vindo</Text>
-
+        <View style={styles.imageContainer}>
+          <Image style={{ width: 300, height: 100 }} source={Logo} />
+        </View>
         <View style={styles.form}>
           {error && (
             <Text style={styles.error}>

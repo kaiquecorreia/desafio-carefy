@@ -9,11 +9,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secundary,
     padding: metrics.basePadding * 2,
   },
-  title: {
-    textAlign: 'center',
-    color: colors.white,
-    fontSize: 24,
-    fontWeight: 'bold',
+  imageContainer: {
+    alignItems: 'center',
   },
   form: {
     marginTop: metrics.baseMargin * 2,
