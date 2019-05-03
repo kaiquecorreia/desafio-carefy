@@ -23,7 +23,7 @@ export function* storePatient(action) {
         {
           text: 'OK',
           onPress: () => {
-            navigate('PatientsList');
+            navigate('Login');
           },
         },
       ],
