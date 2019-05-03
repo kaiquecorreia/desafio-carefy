@@ -15,7 +15,7 @@ export function* getSignin(action) {
     );
     if (user[0].email) {
       yield put(LoginActions.loginSuccess(user[0]));
-      navigate('Patients');
+      navigate('PatientsList');
     } else {
       yield put(LoginActions.loginFailure());
     }

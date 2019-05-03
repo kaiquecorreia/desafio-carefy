@@ -1,32 +1,44 @@
 import { StyleSheet } from 'react-native';
 import { colors, metrics } from '../../styles';
+import { red } from 'ansi-colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: colors.secundary,
-    padding: metrics.basePadding * 2,
+    padding: metrics.basePadding,
+    borderColor: colors.darkTransparent,
+    backgroundColor: colors.lighter,
+  },
+
+  form: {
+    padding: metrics.basePadding,
+    backgroundColor: colors.white,
+    borderRadius: metrics.baseRadius,
+    borderColor: colors.light,
+  },
+  icon: {
+    textAlign: 'center',
+    color: colors.primary,
   },
   title: {
     textAlign: 'center',
-    color: colors.white,
-    fontSize: 24,
+    color: colors.regular,
+    fontSize: 20,
     fontWeight: 'bold',
-  },
-  form: {
-    marginTop: metrics.baseMargin * 2,
+    marginBottom: metrics.baseMargin * 2,
   },
   inputText: {
     fontSize: 15,
-    color: colors.light,
+    color: colors.primary,
     lineHeight: 21,
     marginBottom: metrics.baseMargin,
   },
   input: {
+    borderColor: colors.darkTransparentLight,
+    borderWidth: 1,
     marginBottom: metrics.baseMargin,
-    backgroundColor: colors.whiteTransparent,
     borderRadius: metrics.baseRadius * 2,
     paddingHorizontal: metrics.basePadding,
   },
@@ -44,9 +56,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   error: {
+    textAlign: 'center',
     color: colors.danger,
     fontWeight: 'bold',
     fontSize: 16,
+    margin: metrics.baseMargin * 2,
   },
 });
 

@@ -3,6 +3,7 @@ import { colors, metrics } from '../../styles';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.secundary,
     height: 54,
     paddingTop: getStatusBarHeight(),
     borderBottomWidth: 1,
@@ -15,10 +16,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.darker,
+    color: colors.white,
   },
   icon: {
-    color: colors.primary,
+    color: colors.white,
   },
 });
 export default styles;

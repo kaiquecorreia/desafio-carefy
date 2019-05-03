@@ -42,3 +42,25 @@ export const Read = async Sql => {
   // await database.closeDatabase();
   return data;
 };
+export const Store = async (sql, table) => {
+  database = await connection();
+  let data = [];
+  await database.transaction(tx => {
+    tx.executeSql(sql);
+    tx.executeSql(
+      `SELECT * FROM ${table} ORDER BY id DESC LIMIT 1`,
+      [],
+      (tx, results) => {
+        const rows = results.rows;
+
+        for (let i = 0; i < rows.length; i++) {
+          data.push({
+            ...rows.item(i),
+          });
+        }
+      },
+    );
+  });
+
+  return data;
+};
